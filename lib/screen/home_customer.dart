@@ -1,4 +1,4 @@
-
+import 'package:disefood/screen/menu_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:disefood/component/sidemenu_customer.dart';
@@ -34,17 +34,17 @@ class _HomeState extends State<Home> {
             color: Colors.black,
             endIndent: 40,
           ),
-//          card1,
+        //  card1,
 //          card2,
 //          card3,
 //          card4,
 //          card5,
           //card1
           InkWell(
-//           onTap: (){
-//             Navigator.push(context,
-//               MaterialPageRoute(builder: (context) => ()),);
-//           },
+          onTap: (){
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => MenuPage()),);
+          },
             child: Card(
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,

@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:disefood/screen/home_customer.dart';
-import 'package:disefood/component/sidemenu_seller.dart';
-import 'package:disefood/screen/home_seller.dart';
 
 
 //#Clt+Alt+L จัดระเบียบ

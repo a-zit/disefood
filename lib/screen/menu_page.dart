@@ -1,11 +1,34 @@
+import 'package:disefood/component/sidemenu_customer.dart';
+import 'package:disefood/screen/home_customer.dart';
+import 'package:disefood/screen/menu_order_detail_amount.dart';
 import 'package:flutter/material.dart';
 
 class MenuPage extends StatefulWidget {
+  final String stramount;
+  final bool checkinvis;
+
+  MenuPage({Key key, this.stramount, this.checkinvis}) : super(key: key);
   @override
-  _MenuPageState createState() => _MenuPageState();
+  _MenuPageState createState() => _MenuPageState(stramount, checkinvis);
 }
 
 class _MenuPageState extends State<MenuPage> {
+  bool isfavorite = false;
+  String stramount;
+  bool checkinvis;
+  int amounttempvalue;
+  bool isinvis = false;
+
+  _MenuPageState(this.stramount, this.checkinvis) {
+    if (checkinvis != null) {
+      isinvis = checkinvis;
+    }
+  }
+
+  setAmountToTemp() {
+    amounttempvalue = int.parse(stramount);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -14,12 +37,13 @@ class _MenuPageState extends State<MenuPage> {
         actions: <Widget>[
           new IconButton(
               icon: new Icon(Icons.favorite),
-              onPressed: () => debugPrint('favorite')),
+              onPressed: () => debugPrint('Favorite')),
           new IconButton(
               icon: Icon(Icons.archive),
-              onPressed: () => debugPrint("archive")),
+              onPressed: () => debugPrint("archieve")),
         ],
       ),
+      drawer: SideMenuCustomer(),
       body: Container(
         child: Column(
           children: <Widget>[
@@ -91,7 +115,23 @@ class _MenuPageState extends State<MenuPage> {
                   Row(
                     children: <Widget>[
                       Text("Noodle 1"),
-                      SizedBox(width: 130),
+                      SizedBox(width: 55),
+                      Visibility(
+                        visible: isinvis,
+                        replacement: SizedBox(
+                          width: 25,
+                        ),
+                        child: Container(
+                          child: Text(
+                            'x' + '$stramount',
+                            style: TextStyle(
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          width: 25,
+                        ),
+                      ),
+                      SizedBox(width: 50),
                       Text("45"),
                       SizedBox(width: 15),
                       IconButton(
@@ -100,139 +140,71 @@ class _MenuPageState extends State<MenuPage> {
                           color: Colors.orange,
                         ),
                         onPressed: () {
-                          showGeneralDialog(
-                            barrierDismissible: false,
-                            barrierColor: Colors.black45,
-                            transitionDuration:
-                            const Duration(milliseconds: 200),
-                            context: context,
-                            pageBuilder: (BuildContext context,
-                                Animation animation,
-                                Animation secondAnimation) {
-                              return GestureDetector(
-                                onTap: () {
-                                  FocusScopeNode currentFocus =
-                                  FocusScope.of(context);
-
-                                  if (!currentFocus.hasPrimaryFocus) {
-                                    currentFocus.unfocus();
-                                  }
+                          if (this.stramount == null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return OrderAmount();
                                 },
-                                child: Material(
-                                  type: MaterialType.transparency,
-                                  child: Center(
-                                    child: Container(
-                                      width: 350,
-                                      height: 500,
-                                      margin: EdgeInsets.only(bottom: 100),
-                                      color: Colors.white,
-                                      child: Column(
-                                        children: <Widget>[
-                                          Stack(
-                                            children: <Widget>[
-                                              Card(
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: 150,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                        children: <Widget>[
-                                                          Container(),
-                                                          IconButton(
-                                                            icon: new Icon(
-                                                                Icons.close),
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                  context)
-                                                                  .pop();
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.fill,
-                                                      image: NetworkImage(
-                                                        "https://www.seriouseats.com/2020/01/20200122-kal-guksu-anchovy-noodle-soup-vicky-wasik-5-1500x1125.jpg",
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                            alignment: Alignment.centerLeft,
-                                            padding: EdgeInsets.fromLTRB(
-                                                20, 20, 0, 10),
-                                            child: Text(
-                                              "Noodle 1",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ),
-                                          Divider(
-                                            color: Colors.grey[300],
-                                            thickness: 5,
-                                          ),
-                                          Container(
-                                            alignment: Alignment.centerLeft,
-                                            padding: EdgeInsets.fromLTRB(
-                                                20, 10, 0, 10),
-                                            child: Text("Additional Request"),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.fromLTRB(
-                                                20, 0, 20, 0),
-                                            width: 350,
-                                            child: TextField(
-                                              style: new TextStyle(
-                                                fontSize: 15,
-                                              ),
-                                              maxLines: 2,
-                                              decoration: InputDecoration(
-                                                  border: OutlineInputBorder(),
-                                                  hintText:
-                                                  'ใส่ข้อมูลระบุ เช่น เผ็ดน้อย เป็นต้น'),
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.fromLTRB(
-                                                125, 20, 0, 0),
-                                            child: Row(
-                                              children: <Widget>[
-                                                IconButton(
-                                                    icon: Icon(Icons.remove),
-                                                    onPressed: minus),
-                                                new Text('$_n',
-                                                    style: new TextStyle(
-                                                        fontSize: 20.0)),
-                                                IconButton(
-                                                    icon: Icon(Icons.add),
-                                                    onPressed: add),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
+                              ),
+                            );
+                          } else {
+                            setAmountToTemp();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return OrderAmount(
+                                      amounttempvalue: amounttempvalue);
+                                },
+                              ),
+                            );
+                          }
                         },
                       ),
-                      IconButton(
+                      Visibility(
+                        visible: isfavorite,
+                        replacement: IconButton(
+                          icon: new Icon(Icons.favorite_border),
+                          color: Colors.orange,
+                          onPressed: () => setState(
+                            () => isfavorite = true,
+                          ),
+                        ),
+                        child: IconButton(
                           icon: new Icon(
                             Icons.favorite,
+                            color: Colors.orange,
+                          ),
+                          onPressed: () => setState(
+                            () => isfavorite = false,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Divider(
+                    endIndent: 15,
+                    height: 0,
+                    color: Colors.grey,
+                    thickness: 1.5,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text("Noodle 1"),
+                      SizedBox(width: 130),
+                      Text("45"),
+                      SizedBox(width: 15),
+                      IconButton(
+                          icon: new Icon(
+                            Icons.add_circle,
+                            color: Colors.orange,
+                          ),
+                          onPressed: () => debugPrint('Add')),
+                      IconButton(
+                          icon: new Icon(
+                            Icons.favorite_border,
                             color: Colors.orange,
                           ),
                           onPressed: () => debugPrint('Mark as Favorite')),
@@ -258,33 +230,7 @@ class _MenuPageState extends State<MenuPage> {
                           onPressed: () => debugPrint('Add')),
                       IconButton(
                           icon: new Icon(
-                            Icons.favorite,
-                            color: Colors.orange,
-                          ),
-                          onPressed: () => debugPrint('Mark as Favorite')),
-                    ],
-                  ),
-                  Divider(
-                    endIndent: 15,
-                    height: 0,
-                    color: Colors.grey,
-                    thickness: 1.5,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text("Noodle 1"),
-                      SizedBox(width: 130),
-                      Text("45"),
-                      SizedBox(width: 15),
-                      IconButton(
-                          icon: new Icon(
-                            Icons.add_circle,
-                            color: Colors.orange,
-                          ),
-                          onPressed: () => debugPrint('Add')),
-                      IconButton(
-                          icon: new Icon(
-                            Icons.favorite,
+                            Icons.favorite_border,
                             color: Colors.orange,
                           ),
                           onPressed: () => debugPrint('Mark as Favorite')),
@@ -303,7 +249,31 @@ class _MenuPageState extends State<MenuPage> {
                       child: Row(
                         children: <Widget>[
                           RaisedButton(
-                            onPressed: () => debugPrint('Back'),
+                            onPressed: () {
+                              return Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                      pageBuilder: (BuildContext context,
+                                          Animation<double> animation,
+                                          Animation<double>
+                                              secondaryAnimation) {
+                                        return Home();
+                                      },
+                                      transitionsBuilder: (BuildContext context,
+                                          Animation<double> animation,
+                                          Animation<double> secondaryAnimation,
+                                          Widget child) {
+                                        return FadeTransition(
+                                          opacity: Tween<double>(
+                                            begin: 0,
+                                            end: 1,
+                                          ).animate(animation),
+                                          child: child,
+                                        );
+                                      },
+                                      transitionDuration:
+                                          Duration(milliseconds: 400)));
+                            },
                             child: Text(
                               "Back",
                               style: TextStyle(
@@ -338,19 +308,5 @@ class _MenuPageState extends State<MenuPage> {
         ),
       ),
     );
-  }
-
-  int _n = 0;
-
-  void add() {
-    setState(() {
-      _n++;
-    });
-  }
-
-  void minus() {
-    setState(() {
-      if (_n != 0) _n--;
-    });
   }
 }
