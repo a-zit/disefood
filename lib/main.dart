@@ -1,5 +1,6 @@
 
 
+import 'package:disefood/screen_seller/home_seller.dart';
 import 'package:flutter/material.dart';
 import 'package:disefood/screen/home_customer.dart';
 
@@ -12,7 +13,7 @@ void main(){
       primaryColor: Colors.orange,
       appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
     ),
-    home: new Home(),
+    home: new HomeSeller(),
     initialRoute: '/',
 
   ));

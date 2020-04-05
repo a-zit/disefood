@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:disefood/screen/home_seller.dart';
+import 'package:disefood/screen_seller/home_seller.dart';
 
 
 class SideMenuSeller extends StatelessWidget {

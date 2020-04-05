@@ -1,6 +1,10 @@
+import 'package:disefood/component/feedback_seller_bottombar.dart';
+import 'package:disefood/component/organize_seller_bottombar.dart';
+import 'package:disefood/component/summary_seller_bottombar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:disefood/component/sidemenu_seller.dart';
-import 'package:disefood/screen/order_seller.dart';
+import 'package:disefood/component/order_seller_bottombar.dart';
 
 class HomeSeller extends StatefulWidget {
   static const routeName = '/screen/home_seller';
@@ -14,8 +18,7 @@ class _HomeSellerState extends State<HomeSeller> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-        ],
+        actions: <Widget>[],
       ),
       drawer: SideMenuSeller(),
       body: ListView(
@@ -33,18 +36,21 @@ class _HomeSellerState extends State<HomeSeller> {
               Column(
                 children: <Widget>[
                   Container(
-                      margin: EdgeInsets.only(top: 40),
-                      child: FlatButton(
-                        onPressed: () {
-                          Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => OrderSeller()),);
-                        },
-                        child: Icon(
-                          Icons.fastfood,
-                          size: 70,
-                          color: Colors.orange,
-                        ),
-                      )
+                    margin: EdgeInsets.only(top: 40),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OrderSeller()),
+                        );
+                      },
+                      child: Icon(
+                        Icons.fastfood,
+                        size: 70,
+                        color: Colors.orange,
+                      ),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 8),
@@ -56,7 +62,7 @@ class _HomeSellerState extends State<HomeSeller> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               //menu manage resteraunt
@@ -64,10 +70,19 @@ class _HomeSellerState extends State<HomeSeller> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(top: 40),
-                    child: Icon(
-                      Icons.settings,
-                      color: Colors.orange,
-                      size: 70,
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OrganizeSeller()),
+                        );
+                      },
+                      child: Icon(
+                        Icons.settings,
+                        color: Colors.orange,
+                        size: 70,
+                      ),
                     ),
                   ),
                   Container(
@@ -93,11 +108,19 @@ class _HomeSellerState extends State<HomeSeller> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(top: 40),
-
-                    child: Icon(
-                      Icons.rate_review,
-                      color: Colors.orange,
-                      size: 70,
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FeedbackSeller()),
+                        );
+                      },
+                      child: Icon(
+                        Icons.rate_review,
+                        color: Colors.orange,
+                        size: 70,
+                      ),
                     ),
                   ),
                   Container(
@@ -110,7 +133,7 @@ class _HomeSellerState extends State<HomeSeller> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               //summary
@@ -118,10 +141,19 @@ class _HomeSellerState extends State<HomeSeller> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(top: 40),
-                    child: Icon(
-                      Icons.equalizer,
-                      color: Colors.orange,
-                      size: 70,
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SummarySeller()),
+                        );
+                      },
+                      child: Icon(
+                        Icons.equalizer,
+                        color: Colors.orange,
+                        size: 70,
+                      ),
                     ),
                   ),
                   Container(
@@ -134,7 +166,7 @@ class _HomeSellerState extends State<HomeSeller> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ],
@@ -143,7 +175,6 @@ class _HomeSellerState extends State<HomeSeller> {
 //          buttonSection1,
 //          buttonSection2,
         ],
-
       ),
     );
   }
@@ -151,9 +182,10 @@ class _HomeSellerState extends State<HomeSeller> {
 
 Widget headerImage = new Image.network(
   'https://www.prachachat.net/wp-content/uploads/2018/05/3-1024x704-728x501.jpg',
-  height: 160.0, width: 430.0, fit: BoxFit.cover,
+  height: 160.0,
+  width: 430.0,
+  fit: BoxFit.cover,
 );
-
 
 Widget titleSection = Container(
   padding: EdgeInsets.all(10.0),
@@ -164,9 +196,11 @@ Widget titleSection = Container(
           leading: Container(
             padding: EdgeInsets.only(top: 10.0),
             child: Text(
-              "01", style: TextStyle(color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 24.0),
+              "01",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0),
             ),
           ),
           title: Text(
@@ -179,19 +213,19 @@ Widget titleSection = Container(
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                  "อาหารเส้น"
-              ),
+              Text("อาหารเส้น"),
               Container(
                 padding: EdgeInsets.only(top: 5.0),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.star, color: Colors.orange, size: 15.0,),
+                    Icon(
+                      Icons.star,
+                      color: Colors.orange,
+                      size: 15.0,
+                    ),
                     Container(
                       margin: EdgeInsets.only(left: 5.0),
-                      child: Text(
-                          "4.2"
-                      ),
+                      child: Text("4.2"),
                     ),
                   ],
                 ),
@@ -204,7 +238,6 @@ Widget titleSection = Container(
   ),
 );
 
-
 //Widget buttonSection1 = Row(
 //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 //  children: <Widget>[
@@ -212,7 +245,6 @@ Widget titleSection = Container(
 //    _buildButtonColumn2(icon: Icons.settings, label: "จัดการร้านค้า"),
 //  ],
 //);
-
 
 //Widget buttonSection2 = Row(
 //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -321,4 +353,3 @@ Widget titleSection = Container(
 //    ],
 //  );
 //}
-
