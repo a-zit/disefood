@@ -12,6 +12,8 @@ class _OrderSellerPageState extends State<OrderSellerPage> {
   List<String> items = List<String>.generate(7, (index) {
     return "Item + $index";
   });
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +33,7 @@ class _OrderSellerPageState extends State<OrderSellerPage> {
       ),
       drawer: SideMenuSeller(),
       body: new ListView.builder(
-        itemCount: items.length,
+        itemCount: items.length ,
         itemBuilder: (context,int index){
           final item = items[index];
           return new Dismissible(
@@ -164,7 +166,7 @@ class _OrderSellerPageState extends State<OrderSellerPage> {
                                   RaisedButton(
                                     onPressed:(){
                                       setState(() {
-                                        items.removeAt(index);
+                                        items.removeWhere((items) => item == items[index]);
                                       });
                                     },
                                     padding: EdgeInsets.only(left: 20,right: 20),
