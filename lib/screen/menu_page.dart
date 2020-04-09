@@ -1,6 +1,7 @@
 import 'package:disefood/component/sidemenu_customer.dart';
 import 'package:disefood/screen/home_customer.dart';
 import 'package:disefood/screen/menu_order_detail_amount.dart';
+import 'package:disefood/screen/order_items.dart';
 import 'package:flutter/material.dart';
 
 class MenuPage extends StatefulWidget {
@@ -60,11 +61,12 @@ class _MenuPageState extends State<MenuPage> {
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   Container(
-                      height: 65,
-                      child: VerticalDivider(
-                        color: Colors.orange,
-                        thickness: 3,
-                      )),
+                    height: 65,
+                    child: VerticalDivider(
+                      color: Colors.orange,
+                      thickness: 3,
+                    ),
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -287,7 +289,14 @@ class _MenuPageState extends State<MenuPage> {
                             width: 30,
                           ),
                           RaisedButton(
-                            onPressed: () => debugPrint('View Order'),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => OrderItemPage(),
+                                ),
+                              );
+                            },
                             child: Text(
                               "View Order",
                               style: TextStyle(
