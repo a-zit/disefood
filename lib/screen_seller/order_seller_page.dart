@@ -13,7 +13,8 @@ class _OrderSellerPageState extends State<OrderSellerPage> {
     return "Item + $index";
   });
 
-  
+  List<Card> carditem = new List<Card>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +167,7 @@ class _OrderSellerPageState extends State<OrderSellerPage> {
                                   RaisedButton(
                                     onPressed:(){
                                       setState(() {
-                                        items.removeWhere((items) => item == items[index]);
+                                        items.removeAt(index);
                                       });
                                     },
                                     padding: EdgeInsets.only(left: 20,right: 20),
