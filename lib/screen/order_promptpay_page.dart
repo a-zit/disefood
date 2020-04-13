@@ -1,5 +1,10 @@
 import 'package:disefood/component/sidemenu_customer.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
+import 'package:image_picker_saver/image_picker_saver.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 class PromptpayPage extends StatefulWidget {
   @override
@@ -7,7 +12,25 @@ class PromptpayPage extends StatefulWidget {
 }
 
 class _PromptpayPageState extends State<PromptpayPage> {
+  static GlobalKey screen = new GlobalKey();
+
   bool noupload = true;
+
+  void imageUploaded() {
+    setState(() {
+      noupload = false;
+    });
+  }
+
+  ScreenShot() async {
+    RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
+    ui.Image image = await boundary.toImage();
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    var filePath = await ImagePickerSaver.saveFile(
+        fileData: byteData.buffer.asUint8List());
+    print(filePath);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,56 +64,59 @@ class _PromptpayPageState extends State<PromptpayPage> {
                 indent: 45,
                 endIndent: 45,
               ),
-              Container(
-                height: 400,
-                padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        width: 150,
-                        margin: EdgeInsets.only(top: 30),
-                        child: Image.network(
-                            "https://www.thaiload.com/wp-content/uploads/2018/01/image.jpeg"),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("ร้าน 000001"),
-                          Text(" # 999999 Baht"),
-                        ],
-                      ),
-                      Container(
-                        width: 200,
-                        margin: EdgeInsets.only(top: 10),
-                        child: Image.network(
-                            "https://boofcv.org/images/thumb/3/35/Example_rendered_qrcode.png/400px-Example_rendered_qrcode.png"),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 15),
-                        width: 200,
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.file_download,
-                                color: Colors.orange,
-                              ),
-                              Text(
-                                " บันทืกรูปภาพ",
-                                style: TextStyle(
-                                    color: Colors.orange,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+              RepaintBoundary(
+                key: screen,
+                child: Container(
+                  height: 400,
+                  padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: 150,
+                          margin: EdgeInsets.only(top: 30),
+                          child: Image.network(
+                              "https://www.thaiload.com/wp-content/uploads/2018/01/image.jpeg"),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text("ร้าน 000001"),
+                            Text(" # 999999 Baht"),
+                          ],
+                        ),
+                        Container(
+                          width: 200,
+                          margin: EdgeInsets.only(top: 10),
+                          child: Image.network(
+                              "https://boofcv.org/images/thumb/3/35/Example_rendered_qrcode.png/400px-Example_rendered_qrcode.png"),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          width: 200,
+                          child: FlatButton(
+                            onPressed: ScreenShot,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.file_download,
+                                  color: Colors.orange,
+                                ),
+                                Text(
+                                  " บันทืกรูปภาพ",
+                                  style: TextStyle(
+                                      color: Colors.orange,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -113,7 +139,7 @@ class _PromptpayPageState extends State<PromptpayPage> {
                   child: Column(
                     children: <Widget>[
                       Visibility(
-                        visible: true,
+                        visible: noupload,
                         child: Container(
                           width: 300,
                           child: Image.network(
@@ -170,8 +196,11 @@ class _PromptpayPageState extends State<PromptpayPage> {
                     width: 150,
                     margin: EdgeInsets.fromLTRB(0, 10, 20, 20),
                     child: RaisedButton(
+                      elevation: 5,
                       color: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: Text(
                         "ย้อนกลับ",
                         style: TextStyle(
@@ -189,6 +218,7 @@ class _PromptpayPageState extends State<PromptpayPage> {
                     width: 150,
                     margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
                     child: RaisedButton(
+                      elevation: 5,
                       color: Colors.orange,
                       onPressed: () {},
                       child: Text(
