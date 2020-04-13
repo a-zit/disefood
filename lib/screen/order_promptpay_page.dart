@@ -2,9 +2,13 @@ import 'package:disefood/component/sidemenu_customer.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
-import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+//import 'package:image_picker_saver/image_picker_saver.dart';
+
+
 
 class PromptpayPage extends StatefulWidget {
   @override
@@ -12,6 +16,8 @@ class PromptpayPage extends StatefulWidget {
 }
 
 class _PromptpayPageState extends State<PromptpayPage> {
+  File _image;
+
   static GlobalKey screen = new GlobalKey();
 
   bool noupload = true;
@@ -22,13 +28,21 @@ class _PromptpayPageState extends State<PromptpayPage> {
     });
   }
 
-  ScreenShot() async {
-    RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
-    ui.Image image = await boundary.toImage();
-    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    var filePath = await ImagePickerSaver.saveFile(
-        fileData: byteData.buffer.asUint8List());
-    print(filePath);
+
+//  Future ScreenShot() async {
+//    RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
+//    ui.Image image = await boundary.toImage();
+//    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+//    var filePath = await ImagePickerSaver.saveFile(
+//        fileData: byteData.buffer.asUint8List());
+//    print(filePath);
+//  }
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
   }
 
   @override
@@ -97,7 +111,8 @@ class _PromptpayPageState extends State<PromptpayPage> {
                           margin: EdgeInsets.only(top: 15),
                           width: 200,
                           child: FlatButton(
-                            onPressed: ScreenShot,
+                            onPressed: (){
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -142,8 +157,22 @@ class _PromptpayPageState extends State<PromptpayPage> {
                         visible: noupload,
                         child: Container(
                           width: 300,
-                          child: Image.network(
-                              "https://wakarusaag.com/wp-content/plugins/oem-showcase-inventory/assets/images/noimage-found.png"),
+                          child : _image == null?
+                          Image.network(
+                              "https://wakarusaag.com/wp-content/plugins/oem-showcase-inventory/assets/images/noimage-found.png"):
+                              SizedBox(
+                                height: 480,
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(10, 30, 10, 10),
+                                  height: 360,
+                                  width: 300,
+                                  child: Container(
+                                    height: 500,
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Image.file(_image),
+                                  ),
+                                ),
+                              )
                         ),
                         replacement: SizedBox(
                           height: 480,
@@ -165,6 +194,12 @@ class _PromptpayPageState extends State<PromptpayPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             FlatButton(
+                              onLongPress: (){
+                                getImage();
+                                setState(() {
+                                  _image;
+                                });
+                              },
                               color: Colors.white,
                               child: Row(
                                 children: <Widget>[
@@ -242,4 +277,5 @@ class _PromptpayPageState extends State<PromptpayPage> {
       ),
     );
   }
+
 }
