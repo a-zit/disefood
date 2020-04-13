@@ -174,20 +174,6 @@ class _PromptpayPageState extends State<PromptpayPage> {
                                 ),
                               )
                         ),
-                        replacement: SizedBox(
-                          height: 480,
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(10, 30, 10, 10),
-                            height: 360,
-                            width: 300,
-                            child: Container(
-                              height: 500,
-                              margin: EdgeInsets.only(top: 10),
-                              child: Image.network(
-                                  "https://www.kasikornbank.com/SiteCollectionDocuments/personal/digital-banking/kplus/functions/verified-slip/img/img-03.png"),
-                            ),
-                          ),
-                        ),
                       ),
                       Container(
                         child: Row(
