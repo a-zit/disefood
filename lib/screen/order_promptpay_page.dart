@@ -29,7 +29,7 @@ class _PromptpayPageState extends State<PromptpayPage> {
   }
 
 
-//  Future ScreenShot() async {
+//  void ScreenShot() async {
 //    RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
 //    ui.Image image = await boundary.toImage();
 //    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
@@ -38,7 +38,7 @@ class _PromptpayPageState extends State<PromptpayPage> {
 //    print(filePath);
 //  }
 
-  Future getImage() async {
+  void getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       _image = image;
